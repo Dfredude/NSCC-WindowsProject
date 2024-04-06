@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:MovieRecommend"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <ToolBar DockPanel.Dock="Left">
+        <StackPanel Orientation="Vertical" Width="75">
+            <Button x:Name="MovieRecommend" Click="Recommend_Click" ToolTip="View Catalog" Content="Recommend">
+            </Button>
+        </StackPanel>
+        <Frame x:Name="mainFrame" Height="Auto" Width="Auto" DockPanel.Dock="Bottom"
+ NavigationUIVisibility="Hidden"></Frame>
+    </ToolBar>
+    
 </Window>
