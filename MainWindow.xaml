@@ -10,16 +10,36 @@
     <Window.Resources>
         <ResourceDictionary>
             <BitmapImage x:Key="movieImage" UriSource="/Images/movie.png"></BitmapImage>
+            <BitmapImage x:Key="closeImage" UriSource="/Images/close.png"></BitmapImage>
         </ResourceDictionary>
     </Window.Resources>
-    <ToolBar DockPanel.Dock="Left">
-        <StackPanel Orientation="Vertical" Width="75">
-            <Button x:Name="MovieRecommend" Click="Recommend_Click" ToolTip="Recommendation">
-                <Image Source="{StaticResource movieImage}"></Image>
-            </Button>
-        </StackPanel>
-        <Frame x:Name="mainFrame" Height="Auto" Width="Auto" DockPanel.Dock="Bottom"
- NavigationUIVisibility="Hidden"></Frame>
-    </ToolBar>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="Exit" Header="Exit" Click="Exit_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource closeImage}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Watch">
+                <MenuItem x:Name="Recommendation" Header="Home" Click="Recommend_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{StaticResource movieImage}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="Left">
+            <StackPanel Orientation="Vertical" Width="75">
+                <Button x:Name="MovieRecommend" Click="Recommend_Click" ToolTip="Movie Recommendation">
+                    <Image Source="{StaticResource movieImage}"></Image>
+                </Button>
+            </StackPanel>
+            <Frame x:Name="mainFrame" Height="Auto" Width="Auto" DockPanel.Dock="Bottom"
+NavigationUIVisibility="Hidden"></Frame>
+        </ToolBar>
+    </DockPanel>
+    
     
 </Window>

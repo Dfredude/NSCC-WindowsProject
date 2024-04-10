@@ -25,5 +25,10 @@ namespace MovieRecommend
         {
             mainFrame.NavigationService.Navigate(new Pages.Recommend());
         }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+        
     }
 }

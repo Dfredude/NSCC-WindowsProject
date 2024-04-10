@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\close.png" />
     <None Remove="Images\movie.png" />
   </ItemGroup>
 
@@ -26,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\movie.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
