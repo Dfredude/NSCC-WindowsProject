@@ -19,6 +19,7 @@ namespace MovieRecommend
         public MainWindow()
         {
             InitializeComponent();
+            mainFrame.NavigationService.Navigate(new Pages.Recommend());
         }
         private void Recommend_Click(object sender, RoutedEventArgs e)
         {
