@@ -9,6 +9,20 @@
       Title="Recommend">
 
     <Grid>
-        <TextBlock>Recommendation</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Recommendation" FontSize="28" Margin="10"/>
+            <Button Content="Search" Height="26" Width="55" Margin="150 0 0 0" />
+            <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"></TextBox>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            
+        </ScrollViewer>
     </Grid>
 </Page>
