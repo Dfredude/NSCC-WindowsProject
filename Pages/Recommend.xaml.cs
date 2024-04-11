@@ -22,21 +22,34 @@ namespace MovieRecommend.Pages
     /// </summary>
     public partial class Recommend : Page
     {
-        ImdbContext imdbContext = new ImdbContext();
+        private ImdbContext _context = new ImdbContext();
         public Recommend()
         {
             InitializeComponent();
             LoadRecommendaAsync(); // Load the recommendations asynchronously
         }
 
-        public async Task LoadRecommendaAsync()
+        private async Task LoadRecommendaAsync()
         {
-            if (!imdbContext.Episodes.Local.Any()) imdbContext.Episodes.Load();
-            // Select top 10 episodes
-            var episodes = await imdbContext.Episodes.Include(e => e.Title).Take(10).ToListAsync();
+            var episodes = await _context.Episodes
+                .Include(e => e.Title) // Include related Title information.
+                .ThenInclude(t => t.Rating) // Include related Rating information.
+                .OrderByDescending(e => e.Title.Rating.AverageRating) // Order episodes by average rating.
+                .Take(10) // Take only the top 10 episodes.
+                .Select(e => new // Project the data into a new anonymous object for binding.
+                {
+                    e.Title.PrimaryTitle, // The primary title of the episode.
+                    // Conditional expression to handle nullable SeasonNumber.
+                    SeasonNumber = e.SeasonNumber.HasValue ? "Season " + e.SeasonNumber.Value.ToString() : "Unknown Season",
+                    // Conditional expression to handle nullable EpisodeNumber.
+                    EpisodeNumber = e.EpisodeNumber.HasValue ? "Episode " + e.EpisodeNumber.Value.ToString() : "Unknown Episode",
+                    Rating = e.Title.Rating.AverageRating // The average rating of the episode.
+                })
+                .ToListAsync(); // Execute the query and convert the result to a list.
 
-            // Bind the episodes to the listbox
+            // Set the EpisodesRecommendations ListView's ItemsSource property to the episodes list.
             EpisodesRecommendations.ItemsSource = episodes;
         }
+
     }
 }

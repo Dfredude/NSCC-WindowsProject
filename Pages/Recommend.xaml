@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Actor Base Recommendation" FontSize="20" Margin="10"/>
+            <TextBlock Text="Top Rated Episodes" FontSize="20" Margin="10"/>
             <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" />
             <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"></TextBox>
         </StackPanel>
@@ -30,13 +30,14 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding Title.PrimaryTitle}" FontSize="20" Margin="10"/>
-                            <TextBlock Text="{Binding SeasonNumber, StringFormat=Season {0}}" FontSize="16" Margin="10"/>
-                            <TextBlock Text="{Binding EpisodeNumber, StringFormat=Episode {0}}" FontSize="16" Margin="10"/>
+                            <TextBlock Text="{Binding PrimaryTitle}" FontSize="20" Margin="10"/>
+                            <TextBlock Text="{Binding SeasonNumber}" FontSize="16" Margin="10"/>
+                            <TextBlock Text="{Binding EpisodeNumber}" FontSize="16" Margin="10"/>
+                            <TextBlock Text="{Binding Rating, StringFormat=Rating: {0:F1}}" FontSize="16" Margin="10"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>  
+            </ListView>
         </ScrollViewer>
     </Grid>
 </Page>

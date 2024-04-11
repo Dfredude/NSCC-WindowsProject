@@ -14,15 +14,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Text="Episode Recommendation (Directors)" FontSize="20" Margin="10"/>
-            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" />
-            <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"></TextBox>
+            <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"/>
+            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" Click="OnSearch"/>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-
+            <ListView x:Name="ListViewEpisodes">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" FontSize="20" Margin="10"/>
+                            <TextBlock Text="{Binding NumVotes, StringFormat=Votes: {0}}" FontSize="16" Margin="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ScrollViewer>
     </Grid>
 </Page>
