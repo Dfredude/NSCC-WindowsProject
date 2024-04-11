@@ -29,6 +29,15 @@ namespace MovieRecommend
         {
             System.Windows.Application.Current.Shutdown();
         }
+        private void directorRecommend_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.DirectorRecommendation());
+        }
+        private void epRecommend_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Pages.EpisodeRecommendation());
+        }
         
+
     }
 }
