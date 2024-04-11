@@ -20,8 +20,8 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Titles recommended for you" FontSize="28" Margin="10"/>
-            <Button Content="Search" Height="26" Width="55" Margin="150 0 0 0" />
+            <TextBlock Text="Actor Base Recommendation" FontSize="20" Margin="10"/>
+            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" />
             <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"></TextBox>
         </StackPanel>
 
