@@ -9,6 +9,8 @@ namespace MovieRecommend.Pages
 {
     /// <summary>
     /// Interaction logic for EpisodeRecommendation.xaml
+    /// This page shows the top movies that received the most attention, ordered by the number of votes.
+    /// Additional information like genre, start year, and runtime is also displayed.
     /// </summary>
     public partial class EpisodeRecommendation : Page
     {
@@ -17,30 +19,51 @@ namespace MovieRecommend.Pages
         public EpisodeRecommendation()
         {
             InitializeComponent();
+            LoadTopMoviesAsync(); // Automatically load the top movies when the page is loaded.
         }
 
-        private async void OnSearch(object sender, RoutedEventArgs e)
+        // Loads the top movies asynchronously
+        private async Task LoadTopMoviesAsync()
         {
-            // Get the search keyword from the text box and convert it to lower case for case-insensitive search
-            var searchKeyword = textSearch.Text.ToLower();
-
-            // Query the database asynchronously to get episodes that contain the search keyword in their titles,
-            // include associated rating information, order the results by number of votes in descending order,
-            // and select only the necessary fields
-            var episodes = await _context.Episodes
-                .Include(e => e.Title)               // Include Title details
-                .ThenInclude(t => t.Rating)          // Include Rating details within Title
-                .Where(e => e.Title.PrimaryTitle.ToLower().Contains(searchKeyword))  // Filter by search keyword
-                .OrderByDescending(e => e.Title.Rating.NumVotes)  // Order by number of votes
-                .Select(e => new                     // Project the results into a new anonymous object
+            var topMovies = await _context.Titles
+                .Include(t => t.Rating)
+                .Include(t => t.Genres)
+                .OrderByDescending(t => t.Rating.NumVotes)
+                .Take(10)
+                .Select(t => new
                 {
-                    Title = e.Title.PrimaryTitle,    // Episode title
-                    NumVotes = e.Title.Rating.NumVotes  // Number of votes for the episode
+                    Title = t.PrimaryTitle,
+                    Genres = string.Join(", ", t.Genres.Select(g => g.Name)),
+                    StartYear = t.StartYear,
+                    RuntimeMinutes = t.RuntimeMinutes,
+                    NumVotes = t.Rating.NumVotes
                 })
-                .ToListAsync();                       // Execute the query and get the results as a list
+                .ToListAsync();
 
-            // Set the ItemsSource of the ListView to the list of episodes retrieved
-            ListViewEpisodes.ItemsSource = episodes;
+            ListViewTopMovies.ItemsSource = topMovies;
         }
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = textSearch.Text.ToLower(); // Convert search text to lowercase for case-insensitive search
+
+            var topMovies = await _context.Titles
+                .Include(t => t.Rating)
+                .Include(t => t.Genres)
+                .Where(t => t.PrimaryTitle.ToLower().Contains(searchText)) // Filter by movies whose title contains the search text
+                .OrderByDescending(t => t.Rating.NumVotes)
+                .Take(10)
+                .Select(t => new
+                {
+                    Title = t.PrimaryTitle,
+                    Genres = string.Join(", ", t.Genres.Select(g => g.Name)),
+                    StartYear = t.StartYear,
+                    RuntimeMinutes = t.RuntimeMinutes,
+                    NumVotes = t.Rating.NumVotes
+                })
+                .ToListAsync();
+
+            ListViewTopMovies.ItemsSource = topMovies;
+        }
+
     }
 }

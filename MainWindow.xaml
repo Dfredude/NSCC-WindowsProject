@@ -30,12 +30,12 @@
                         <Image Source="{StaticResource movieImage}"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="EpisodeRecommendation" Header="Episode Recommendation" Click="epRecommend_Click">
+                <MenuItem x:Name="EpisodeRecommendation" Header="Most Attention Movies" Click="epRecommend_Click">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource episodeImage}"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="DirectorRecommendation" Header="Director Episode Recommendation" Click="directorRecommend_Click">
+                <MenuItem x:Name="DirectorRecommendation" Header="Recent Movies" Click="directorRecommend_Click">
                     <MenuItem.Icon>
                         <Image Source="{StaticResource directorImage}"></Image>
                     </MenuItem.Icon>

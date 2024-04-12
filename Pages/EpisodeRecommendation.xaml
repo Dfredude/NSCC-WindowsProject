@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MovieRecommend.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="EpisodeRecommendation">
+      Title="The movies that received the most attention">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,22 +15,24 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBlock Text="Episode Recommendation (Directors)" FontSize="20" Margin="10"/>
+            <TextBlock Text="The movies that received the most attention" FontSize="20" Margin="10"/>
             <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"/>
-            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" Click="OnSearch"/>
+            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" Click="SearchButton_Click"/>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="ListViewEpisodes">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" FontSize="20" Margin="10"/>
-                            <TextBlock Text="{Binding NumVotes, StringFormat=Votes: {0}}" FontSize="16" Margin="10"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
+        <ListView Grid.Row="1" x:Name="ListViewTopMovies" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}" FontSize="20" Margin="10"/>
+                        <TextBlock Text="{Binding Genres}" FontSize="16" Margin="10"/>
+                        <TextBlock Text="{Binding StartYear, StringFormat=Year: {0}}" FontSize="16" Margin="10"/>
+                        <TextBlock Text="{Binding RuntimeMinutes, StringFormat=Runtime: {0} min}" FontSize="16" Margin="10"/>
+                        <TextBlock Text="{Binding NumVotes, StringFormat=Votes: {0}}" FontSize="16" Margin="10"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

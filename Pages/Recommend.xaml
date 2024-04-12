@@ -21,23 +21,22 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Top Rated Episodes" FontSize="20" Margin="10"/>
-            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" />
+            <Button Content="Search" Height="26" Width="55" Margin="10 0 0 0" Click="SearchButton_Click"/>
             <TextBox x:Name="textSearch" FontSize="20" Width="150" Height="26" Margin="10"></TextBox>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="EpisodesRecommendations">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding PrimaryTitle}" FontSize="20" Margin="10"/>
-                            <TextBlock Text="{Binding SeasonNumber}" FontSize="16" Margin="10"/>
-                            <TextBlock Text="{Binding EpisodeNumber}" FontSize="16" Margin="10"/>
-                            <TextBlock Text="{Binding Rating, StringFormat=Rating: {0:F1}}" FontSize="16" Margin="10"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
+        <ListView Grid.Row="1" x:Name="EpisodesRecommendations" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding PrimaryTitle}" FontSize="20" Margin="10"/>
+                        <TextBlock Text="{Binding SeasonNumber}" FontSize="16" Margin="10"/>
+                        <TextBlock Text="{Binding EpisodeNumber}" FontSize="16" Margin="10"/>
+                        <TextBlock Text="{Binding Rating, StringFormat=Rating: {0:F1}}" FontSize="16" Margin="10"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

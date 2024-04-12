@@ -39,9 +39,7 @@ namespace MovieRecommend.Pages
                 .Select(e => new // Project the data into a new anonymous object for binding.
                 {
                     e.Title.PrimaryTitle, // The primary title of the episode.
-                    // Conditional expression to handle nullable SeasonNumber.
                     SeasonNumber = e.SeasonNumber.HasValue ? "Season " + e.SeasonNumber.Value.ToString() : "Unknown Season",
-                    // Conditional expression to handle nullable EpisodeNumber.
                     EpisodeNumber = e.EpisodeNumber.HasValue ? "Episode " + e.EpisodeNumber.Value.ToString() : "Unknown Episode",
                     Rating = e.Title.Rating.AverageRating // The average rating of the episode.
                 })
@@ -50,6 +48,31 @@ namespace MovieRecommend.Pages
             // Set the EpisodesRecommendations ListView's ItemsSource property to the episodes list.
             EpisodesRecommendations.ItemsSource = episodes;
         }
+
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = textSearch.Text.ToLower(); // Convert search text to lowercase for case-insensitive search
+
+            var episodes = await _context.Episodes
+                .Include(e => e.Title)
+                .ThenInclude(t => t.Rating)
+                .Where(e => e.Title.PrimaryTitle.ToLower().Contains(searchText))
+                .OrderByDescending(e => e.Title.Rating.AverageRating)
+                .Take(10)
+                .Select(e => new
+                {
+                    e.Title.PrimaryTitle,
+                                          
+                    SeasonNumber = e.SeasonNumber.HasValue ? "Season " + e.SeasonNumber.Value.ToString() : "Unknown Season",
+                    EpisodeNumber = e.EpisodeNumber.HasValue ? "Episode " + e.EpisodeNumber.Value.ToString() : "Unknown Episode",
+                    Rating = e.Title.Rating.AverageRating // The average rating of the episode.
+                })
+                .ToListAsync(); // Execute the query and convert the result to a list.
+
+            // Set the EpisodesRecommendations ListView's ItemsSource property to the filtered episodes list.
+            EpisodesRecommendations.ItemsSource = episodes;
+        }
+
 
     }
 }
